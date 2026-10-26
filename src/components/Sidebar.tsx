@@ -7,6 +7,7 @@ import {
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
+  Bus,
 } from 'lucide-react';
 import { ActiveTab } from './Header';
 import { DataSourceState } from '../types/pricing';
@@ -36,7 +37,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'Search by Filter',
       description: 'Category & fee filters',
       icon: <SlidersHorizontal className="w-4 h-4" />,
-      badge: 'Active',
+    },
+    {
+      id: 'transport' as ActiveTab,
+      label: 'Transportation',
+      description: 'Centre bus schedules & stops',
+      icon: <Bus className="w-4 h-4" />,
+      badge: 'New',
     },
     {
       id: 'matrix' as ActiveTab,

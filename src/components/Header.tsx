@@ -1,8 +1,8 @@
 import React from 'react';
-import { Search, SlidersHorizontal, Grid3X3, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Search, SlidersHorizontal, Grid3X3, RefreshCw, CheckCircle2, Bus } from 'lucide-react';
 import { DataSourceState } from '../types/pricing';
 
-export type ActiveTab = 'search' | 'filter' | 'matrix' | 'sync';
+export type ActiveTab = 'search' | 'filter' | 'matrix' | 'transport' | 'sync';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -52,6 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
               {activeTab === 'search' && 'Price Search'}
               {activeTab === 'filter' && 'Search by Filter'}
               {activeTab === 'matrix' && 'Sheet Matrix'}
+              {activeTab === 'transport' && 'Transportation'}
               {activeTab === 'sync' && 'Sheets Sync'}
             </span>
           </div>
@@ -79,7 +80,19 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
-              <span>Search by Filter</span>
+              <span>Filter</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('transport')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 text-xs font-semibold ${
+                activeTab === 'transport'
+                  ? 'bg-[#F0FDF4] text-[#006B45] border border-[#D1FAE5]'
+                  : 'text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50'
+              }`}
+            >
+              <Bus className="w-3.5 h-3.5" />
+              <span>Transportation</span>
             </button>
 
             <button
@@ -136,6 +149,15 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <SlidersHorizontal className="w-4 h-4" />
             <span>Filter</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('transport')}
+            className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg ${
+              activeTab === 'transport' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
+            }`}
+          >
+            <Bus className="w-4 h-4" />
+            <span>Bus</span>
           </button>
           <button
             onClick={() => setActiveTab('matrix')}

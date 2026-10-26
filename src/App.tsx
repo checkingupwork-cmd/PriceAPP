@@ -5,6 +5,7 @@ import { SearchDashboard } from './components/SearchDashboard';
 import { SearchByFilter } from './components/SearchByFilter';
 import { PriceMatrixView } from './components/PriceMatrixView';
 import { SheetsSyncModal } from './components/SheetsSyncModal';
+import { TransportationPage } from './components/TransportationPage';
 import {
   RawMatrixRow,
   NormalizedPriceRecord,
@@ -31,7 +32,7 @@ export default function App() {
     return records.find((r) => r.serviceName === 'THEORY TEST' && r.category === 'LMV' && r.feeType === 'REGULAR') || records[0] || null;
   });
 
-  // Navigation tab state (search | filter | matrix | sync)
+  // Navigation tab state (search | filter | transport | matrix | sync)
   const [activeTab, setActiveTab] = useState<ActiveTab>('search');
 
   // Notification toast state
@@ -89,6 +90,11 @@ export default function App() {
         return {
           title: 'Search by Filter',
           description: 'Multi-criteria tariff lookup combining Category, Fee Type, specific Service, and AED Price Range.',
+        };
+      case 'transport':
+        return {
+          title: 'Transportation Schedule',
+          description: 'Official bus routes, student pickup points, GPS map pins, and timetables for Al Quoz and DIC centres.',
         };
       case 'matrix':
         return {
@@ -191,6 +197,10 @@ export default function App() {
               records={records}
               matrix={matrix}
             />
+          )}
+
+          {activeTab === 'transport' && (
+            <TransportationPage />
           )}
 
           {activeTab === 'matrix' && (
