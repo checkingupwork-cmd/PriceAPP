@@ -240,7 +240,7 @@ export function loadSavedMatrix(): { matrix: RawMatrixRow[]; meta: StorageMeta }
     matrix: RAW_SOURCE_MATRIX,
     meta: {
       sourceType: 'default_sheet',
-      sourceName: 'Official RTA Driving School Price List (Verified Source)',
+      sourceName: 'Eco Drive Driving institute Official Price List (Verified Source)',
       lastSyncTimestamp: 'Synchronized with Source Sheet',
     },
   };
@@ -273,7 +273,7 @@ export function resetToDefaultMatrix(): { matrix: RawMatrixRow[]; meta: StorageM
     matrix: RAW_SOURCE_MATRIX,
     meta: {
       sourceType: 'default_sheet',
-      sourceName: 'Official RTA Driving School Price List (Verified Source)',
+      sourceName: 'Eco Drive Driving institute Official Price List (Verified Source)',
       lastSyncTimestamp: 'Synchronized with Source Sheet',
     },
   };

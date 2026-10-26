@@ -4,11 +4,9 @@ import {
   SlidersHorizontal,
   Grid3X3,
   RefreshCw,
-  Car,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Database,
 } from 'lucide-react';
 import { ActiveTab } from './Header';
 import { DataSourceState } from '../types/pricing';
@@ -60,20 +58,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
         isCollapsed ? 'w-20' : 'w-64'
       }`}
     >
-      {/* Brand Header */}
+      {/* Brand Header with Official Eco Drive Logo */}
       <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between">
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="w-10 h-10 rounded-xl bg-[#006B45] text-white flex items-center justify-center font-bold text-base shadow-xs shrink-0 border border-emerald-400/20">
-            <Car className="w-5 h-5 text-emerald-200" />
-          </div>
-          {!isCollapsed && (
-            <div className="truncate">
-              <span className="text-base font-bold text-white block leading-tight tracking-tight">
-                DrivePrice
-              </span>
-              <span className="text-[11px] text-emerald-200/80 font-medium tracking-wide">
-                RTA Tariff System
-              </span>
+          {!isCollapsed ? (
+            <div className="py-0.5">
+              <img
+                src="/assets/eco-drive-logo-white.png"
+                alt="Eco Drive Driving institute"
+                className="h-9 w-auto max-w-[175px] object-contain"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src =
+                    "https://www.ecodrivedubai.com/wp-content/uploads/2026/01/eco-drive-logo_White-01-768x313.png";
+                }}
+              />
+            </div>
+          ) : (
+            <div
+              className="w-10 h-10 rounded-xl bg-[#006B45] text-white flex items-center justify-center shadow-xs shrink-0 border border-emerald-400/20 overflow-hidden p-1.5"
+              title="Eco Drive Driving institute"
+            >
+              <img
+                src="/assets/eco-drive-logo-white.png"
+                alt="Eco Drive"
+                className="h-full w-auto max-w-none object-left object-cover"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src =
+                    "https://www.ecodrivedubai.com/wp-content/uploads/2026/01/eco-drive-logo_White-01-768x313.png";
+                }}
+              />
             </div>
           )}
         </div>
@@ -152,7 +165,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="bg-black/20 rounded-xl p-3 border border-white/5 space-y-1.5">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-200">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Official RTA Rates</span>
+              <span>Eco Drive Official Rates</span>
             </div>
             <p className="text-[11px] text-emerald-100/60 leading-snug">
               {dataSource.totalServicesCount} Services · 5 License Categories
@@ -163,7 +176,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
           </div>
         ) : (
-          <div className="flex justify-center py-2" title="RTA Official Tariffs Verified">
+          <div className="flex justify-center py-2" title="Eco Drive Official Rates Verified">
             <CheckCircle2 className="w-5 h-5 text-emerald-400" />
           </div>
         )}

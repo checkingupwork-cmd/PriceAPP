@@ -128,22 +128,35 @@ export default function App() {
           onOpenSync={() => setActiveTab('sync')}
         />
 
-        {/* Hero Banner Strip (Royal Green & Dark Forest) */}
+        {/* Hero Banner Strip (Royal Green & Dark Forest with Official Eco Drive Logo) */}
         <div className="bg-[#064E3B] text-white border-b border-[#004d32]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <div className="flex items-center gap-2 text-xs text-emerald-300 font-semibold uppercase tracking-wider">
-                  <span>RTA Licensed Driving School</span>
-                  <span>·</span>
-                  <span>Dubai, UAE</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-start sm:items-center gap-4">
+                <div className="hidden sm:flex items-center justify-center p-2 rounded-xl bg-black/20 border border-white/10 shrink-0">
+                  <img
+                    src="/assets/eco-drive-logo-white.png"
+                    alt="Eco Drive Driving institute"
+                    className="h-10 w-auto object-contain"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src =
+                        "https://www.ecodrivedubai.com/wp-content/uploads/2026/01/eco-drive-logo_White-01-768x313.png";
+                    }}
+                  />
                 </div>
-                <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight mt-1">
-                  {tabDetails.title}
-                </h1>
-                <p className="text-xs sm:text-sm text-emerald-100/80 mt-1 max-w-2xl">
-                  {tabDetails.description}
-                </p>
+                <div>
+                  <div className="flex items-center gap-2 text-xs text-emerald-300 font-semibold tracking-wider">
+                    <span>Eco Drive Driving institute</span>
+                    <span>·</span>
+                    <span>Dubai, UAE</span>
+                  </div>
+                  <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight mt-1">
+                    {tabDetails.title}
+                  </h1>
+                  <p className="text-xs sm:text-sm text-emerald-100/80 mt-1 max-w-2xl">
+                    {tabDetails.description}
+                  </p>
+                </div>
               </div>
 
               {/* Status Pill */}
@@ -205,7 +218,7 @@ export default function App() {
         {/* Footer */}
         <footer className="bg-white border-t border-[#E2E8F0] py-4 mt-auto">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#64748B] gap-2">
-            <span className="font-medium text-[#0F172A]">DrivePrice · Driving School Tariff & RTA Test Price Search</span>
+            <span className="font-medium text-[#0F172A]">Eco Drive · Eco Drive Driving institute Tariff Search</span>
             <div className="flex items-center gap-4">
               <span>21 Verified Services</span>
               <span>·</span>

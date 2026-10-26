@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, SlidersHorizontal, Grid3X3, RefreshCw, Car, CheckCircle2 } from 'lucide-react';
+import { Search, SlidersHorizontal, Grid3X3, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { DataSourceState } from '../types/pricing';
 
 export type ActiveTab = 'search' | 'filter' | 'matrix' | 'sync';
@@ -21,29 +21,32 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6 h-16">
-          {/* Zone 1: Single text wordmark (on mobile or when sidebar hidden) */}
+          {/* Zone 1: Official Logo in brand container on mobile/tablet */}
           <div className="flex items-center gap-3 shrink-0 lg:hidden">
-            <div className="w-9 h-9 rounded-xl bg-[#006B45] text-white flex items-center justify-center font-bold text-base shadow-xs">
-              <Car className="w-5 h-5 text-emerald-200" />
-            </div>
             <a
               href="#search"
               onClick={(e) => {
                 e.preventDefault();
                 setActiveTab('search');
               }}
-              className="text-lg font-bold tracking-tight text-[#0F172A] whitespace-nowrap hover:text-[#006B45] transition-colors"
+              className="flex items-center bg-[#064E3B] px-3 py-1.5 rounded-xl border border-emerald-400/20 shadow-2xs hover:opacity-95 transition-opacity"
+              title="Eco Drive Driving institute"
             >
-              DrivePrice
+              <img
+                src="/assets/eco-drive-logo-white.png"
+                alt="Eco Drive Driving institute"
+                className="h-7 w-auto object-contain"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src =
+                    "https://www.ecodrivedubai.com/wp-content/uploads/2026/01/eco-drive-logo_White-01-768x313.png";
+                }}
+              />
             </a>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#064E3B] bg-[#F0FDF4] border border-[#D1FAE5] px-2 py-0.5 rounded-md">
-              RTA Fee Desk
-            </span>
           </div>
 
           {/* Breadcrumb / Title on Desktop */}
           <div className="hidden lg:flex items-center gap-2 text-xs text-[#64748B]">
-            <span className="font-semibold text-[#0F172A]">DrivePrice</span>
+            <span className="font-semibold text-[#0F172A]">Eco Drive</span>
             <span>/</span>
             <span className="text-[#006B45] font-semibold">
               {activeTab === 'search' && 'Price Search'}
@@ -108,7 +111,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-3 shrink-0 ml-auto">
             <div className="flex items-center gap-2 bg-[#F0FDF4] border border-[#D1FAE5] text-[#064E3B] px-3 py-1.5 rounded-lg text-xs font-medium">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#059669] shrink-0" />
-              <span className="hidden sm:inline">RTA Official Rates ·</span>
+              <span className="hidden sm:inline">Eco Drive Official Rates ·</span>
               <span className="font-semibold">{dataSource.availablePricesCount} Active Tariffs</span>
             </div>
           </div>

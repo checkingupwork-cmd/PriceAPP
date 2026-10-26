@@ -233,7 +233,7 @@ export const SearchDashboard: React.FC<SearchDashboardProps> = ({
       .map((p) => `${p.feeType}: ${p.price !== null ? formatAED(p.price) : 'Not Available'}`)
       .join('\n');
 
-    const summary = `${group.serviceName} (${group.category} - ${catInfo?.fullName || ''})\n${validLines}\n*Driving School RTA Tariffs (Dubai/UAE)`;
+    const summary = `${group.serviceName} (${group.category} - ${catInfo?.fullName || ''})\n${validLines}\n*Eco Drive Driving institute RTA Tariffs (Dubai/UAE)`;
 
     await navigator.clipboard.writeText(summary);
     setCopiedGroupKey(`${group.serviceName}_${group.category}`);
