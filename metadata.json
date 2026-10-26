@@ -1,0 +1,6 @@
+{
+  "name": "Smart Price Search Dashboard",
+  "description": "Instant driving school fee lookup, category and service pricing search, quick quotation generator, and Google Sheets synchronization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
