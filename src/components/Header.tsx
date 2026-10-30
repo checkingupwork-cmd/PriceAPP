@@ -1,21 +1,19 @@
 import React from 'react';
-import { Search, SlidersHorizontal, Grid3X3, RefreshCw, CheckCircle2, Bus } from 'lucide-react';
+import { Search, SlidersHorizontal, Grid3X3, CheckCircle2, Bus, MapPin } from 'lucide-react';
 import { DataSourceState } from '../types/pricing';
 
-export type ActiveTab = 'search' | 'filter' | 'matrix' | 'transport' | 'sync';
+export type ActiveTab = 'search' | 'filter' | 'matrix' | 'transport' | 'branches';
 
 interface HeaderProps {
   activeTab: ActiveTab;
   setActiveTab: (tab: ActiveTab) => void;
   dataSource: DataSourceState;
-  onOpenSync: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   activeTab,
   setActiveTab,
   dataSource,
-  onOpenSync,
 }) => {
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-[#E2E8F0]">
@@ -51,9 +49,9 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="text-[#006B45] font-semibold">
               {activeTab === 'search' && 'Price Search'}
               {activeTab === 'filter' && 'Search by Filter'}
-              {activeTab === 'matrix' && 'Sheet Matrix'}
               {activeTab === 'transport' && 'Transportation'}
-              {activeTab === 'sync' && 'Sheets Sync'}
+              {activeTab === 'branches' && 'Branch and Location'}
+              {activeTab === 'matrix' && 'Sheet Matrix'}
             </span>
           </div>
 
@@ -96,6 +94,18 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             <button
+              onClick={() => setActiveTab('branches')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 text-xs font-semibold ${
+                activeTab === 'branches'
+                  ? 'bg-[#F0FDF4] text-[#006B45] border border-[#D1FAE5]'
+                  : 'text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50'
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Branches</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab('matrix')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 text-xs font-semibold ${
                 activeTab === 'matrix'
@@ -105,18 +115,6 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Grid3X3 className="w-3.5 h-3.5" />
               <span>Matrix</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('sync')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 text-xs font-semibold ${
-                activeTab === 'sync'
-                  ? 'bg-[#F0FDF4] text-[#006B45] border border-[#D1FAE5]'
-                  : 'text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50'
-              }`}
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>Sync</span>
             </button>
           </nav>
 
@@ -134,48 +132,48 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="sm:hidden flex items-center justify-around py-2 border-t border-[#E2E8F0] text-xs font-medium text-[#64748B]">
           <button
             onClick={() => setActiveTab('search')}
-            className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg ${
+            className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
               activeTab === 'search' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
             }`}
           >
             <Search className="w-4 h-4" />
-            <span>Search</span>
+            <span className="text-[10px]">Search</span>
           </button>
           <button
             onClick={() => setActiveTab('filter')}
-            className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg ${
+            className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
               activeTab === 'filter' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
             }`}
           >
             <SlidersHorizontal className="w-4 h-4" />
-            <span>Filter</span>
+            <span className="text-[10px]">Filter</span>
           </button>
           <button
             onClick={() => setActiveTab('transport')}
-            className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg ${
+            className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
               activeTab === 'transport' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
             }`}
           >
             <Bus className="w-4 h-4" />
-            <span>Bus</span>
+            <span className="text-[10px]">Bus</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('branches')}
+            className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
+              activeTab === 'branches' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
+            }`}
+          >
+            <MapPin className="w-4 h-4" />
+            <span className="text-[10px]">Branches</span>
           </button>
           <button
             onClick={() => setActiveTab('matrix')}
-            className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg ${
+            className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
               activeTab === 'matrix' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
             }`}
           >
             <Grid3X3 className="w-4 h-4" />
-            <span>Matrix</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('sync')}
-            className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg ${
-              activeTab === 'sync' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
-            }`}
-          >
-            <RefreshCw className="w-4 h-4" />
-            <span>Sync</span>
+            <span className="text-[10px]">Matrix</span>
           </button>
         </div>
       </div>

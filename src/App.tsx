@@ -4,25 +4,21 @@ import { Sidebar } from './components/Sidebar';
 import { SearchDashboard } from './components/SearchDashboard';
 import { SearchByFilter } from './components/SearchByFilter';
 import { PriceMatrixView } from './components/PriceMatrixView';
-import { SheetsSyncModal } from './components/SheetsSyncModal';
 import { TransportationPage } from './components/TransportationPage';
+import { BranchLocationPage } from './components/BranchLocationPage';
 import {
   RawMatrixRow,
   NormalizedPriceRecord,
   DataSourceState,
 } from './types/pricing';
-import {
-  loadSavedMatrix,
-  saveMatrixToStorage,
-  resetToDefaultMatrix,
-} from './services/sheetsService';
+import { loadSavedMatrix } from './services/sheetsService';
 import { normalizeMatrix } from './data/defaultPriceData';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function App() {
   // Load initial matrix & metadata
   const initialData = useMemo(() => loadSavedMatrix(), []);
-  const [matrix, setMatrix] = useState<RawMatrixRow[]>(initialData.matrix);
+  const [matrix] = useState<RawMatrixRow[]>(initialData.matrix);
 
   // Compute normalized records whenever matrix changes
   const records = useMemo(() => normalizeMatrix(matrix), [matrix]);
@@ -32,7 +28,7 @@ export default function App() {
     return records.find((r) => r.serviceName === 'THEORY TEST' && r.category === 'LMV' && r.feeType === 'REGULAR') || records[0] || null;
   });
 
-  // Navigation tab state (search | filter | transport | matrix | sync)
+  // Navigation tab state (search | filter | transport | matrix | branches)
   const [activeTab, setActiveTab] = useState<ActiveTab>('search');
 
   // Notification toast state
@@ -58,31 +54,6 @@ export default function App() {
     };
   }, [matrix, records, initialData]);
 
-  // Update Matrix from Google Sheet sync or CSV Import
-  const handleUpdateMatrix = (
-    newMatrix: RawMatrixRow[],
-    sourceType: 'google_sheet_url' | 'imported_file' | 'default_sheet',
-    sourceName: string,
-    url?: string
-  ) => {
-    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    setMatrix(newMatrix);
-    saveMatrixToStorage(newMatrix, {
-      sourceType,
-      sourceName,
-      lastSyncTimestamp: timestamp,
-      googleSheetUrl: url,
-    });
-    showToast(`Data refreshed: ${newMatrix.length} service rows loaded`);
-  };
-
-  // Reset to verified original source matrix
-  const handleResetToDefault = () => {
-    const restored = resetToDefaultMatrix();
-    setMatrix(restored.matrix);
-    showToast('Restored official verified price matrix');
-  };
-
   // Dynamic header titles based on active tab
   const tabDetails = useMemo(() => {
     switch (activeTab) {
@@ -96,15 +67,15 @@ export default function App() {
           title: 'Transportation Schedule',
           description: 'Official bus routes, student pickup points, GPS map pins, and timetables for Al Quoz and DIC centres.',
         };
+      case 'branches':
+        return {
+          title: 'Branch and Location',
+          description: 'Official Eco Drive branch network across Dubai, traffic zone conditions, road training restrictions, and live availability.',
+        };
       case 'matrix':
         return {
           title: 'Sheet Matrix View',
           description: 'Interactive 2D spreadsheet layout matching the original Google Sheet table format.',
-        };
-      case 'sync':
-        return {
-          title: 'Google Sheets Sync & Data Import',
-          description: 'Connect live Google Sheets URLs or upload exported CSV files with automatic validation.',
         };
       case 'search':
       default:
@@ -131,7 +102,6 @@ export default function App() {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           dataSource={dataSource}
-          onOpenSync={() => setActiveTab('sync')}
         />
 
         {/* Hero Banner Strip (Royal Green & Dark Forest with Official Eco Drive Logo) */}
@@ -203,6 +173,10 @@ export default function App() {
             <TransportationPage />
           )}
 
+          {activeTab === 'branches' && (
+            <BranchLocationPage />
+          )}
+
           {activeTab === 'matrix' && (
             <PriceMatrixView
               matrix={matrix}
@@ -212,15 +186,6 @@ export default function App() {
                   showToast(`Copied ${record.serviceName} (${record.category}): AED ${record.price.toFixed(2)}`);
                 }
               }}
-            />
-          )}
-
-          {activeTab === 'sync' && (
-            <SheetsSyncModal
-              matrix={matrix}
-              dataSource={dataSource}
-              onUpdateMatrix={handleUpdateMatrix}
-              onResetToDefault={handleResetToDefault}
             />
           )}
         </main>

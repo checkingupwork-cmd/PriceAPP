@@ -3,11 +3,11 @@ import {
   Search,
   SlidersHorizontal,
   Grid3X3,
-  RefreshCw,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
   Bus,
+  MapPin,
 } from 'lucide-react';
 import { ActiveTab } from './Header';
 import { DataSourceState } from '../types/pricing';
@@ -43,7 +43,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'Transportation',
       description: 'Centre bus schedules & stops',
       icon: <Bus className="w-4 h-4" />,
-      badge: 'New',
     },
     {
       id: 'matrix' as ActiveTab,
@@ -52,10 +51,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       icon: <Grid3X3 className="w-4 h-4" />,
     },
     {
-      id: 'sync' as ActiveTab,
-      label: 'Sheets Sync',
-      description: 'Import & CSV connector',
-      icon: <RefreshCw className="w-4 h-4" />,
+      id: 'branches' as ActiveTab,
+      label: 'Branch and Location',
+      description: '39 branches & live availability',
+      icon: <MapPin className="w-4 h-4" />,
+      badge: 'New',
     },
   ];
 
