@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Search,
   SlidersHorizontal,
-  Grid3X3,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
@@ -29,12 +27,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const navItems = [
     {
-      id: 'search' as ActiveTab,
-      label: 'Price Search',
-      description: 'One-click instant search',
-      icon: <Search className="w-4 h-4" />,
-    },
-    {
       id: 'filter' as ActiveTab,
       label: 'Search by Filter',
       description: 'Category & fee filters',
@@ -45,12 +37,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'Transportation',
       description: 'Centre bus schedules & stops',
       icon: <Bus className="w-4 h-4" />,
-    },
-    {
-      id: 'matrix' as ActiveTab,
-      label: 'Sheet Matrix',
-      description: '2D spreadsheet grid',
-      icon: <Grid3X3 className="w-4 h-4" />,
     },
     {
       id: 'branches' as ActiveTab,

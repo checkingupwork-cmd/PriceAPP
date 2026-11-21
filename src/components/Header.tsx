@@ -1,8 +1,8 @@
 import React from 'react';
-import { Search, SlidersHorizontal, Grid3X3, CheckCircle2, Bus, MapPin, Users, Building2 } from 'lucide-react';
+import { SlidersHorizontal, CheckCircle2, Bus, MapPin, Users, Building2 } from 'lucide-react';
 import { DataSourceState } from '../types/pricing';
 
-export type ActiveTab = 'search' | 'filter' | 'matrix' | 'transport' | 'branches' | 'instructors' | 'branch-info';
+export type ActiveTab = 'filter' | 'transport' | 'branches' | 'instructors' | 'branch-info';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -22,10 +22,10 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Zone 1: Official Logo in brand container on mobile/tablet */}
           <div className="flex items-center gap-3 shrink-0 lg:hidden">
             <a
-              href="#search"
+              href="#filter"
               onClick={(e) => {
                 e.preventDefault();
-                setActiveTab('search');
+                setActiveTab('filter');
               }}
               className="flex items-center bg-[#064E3B] px-3 py-1.5 rounded-xl border border-emerald-400/20 shadow-2xs hover:opacity-95 transition-opacity"
               title="Eco Drive Driving institute"
@@ -47,30 +47,16 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="font-semibold text-[#0F172A]">Eco Drive</span>
             <span>/</span>
             <span className="text-[#006B45] font-semibold">
-              {activeTab === 'search' && 'Price Search'}
               {activeTab === 'filter' && 'Search by Filter'}
               {activeTab === 'transport' && 'Transportation'}
               {activeTab === 'branches' && 'Branch and Location'}
               {activeTab === 'branch-info' && 'Branch Information'}
               {activeTab === 'instructors' && 'Instructors'}
-              {activeTab === 'matrix' && 'Sheet Matrix'}
             </span>
           </div>
 
           {/* Zone 2: Navigation links on tablet / medium screens */}
           <nav className="hidden sm:flex lg:hidden items-center gap-1 text-sm font-medium">
-            <button
-              onClick={() => setActiveTab('search')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 text-xs font-semibold ${
-                activeTab === 'search'
-                  ? 'bg-[#F0FDF4] text-[#006B45] border border-[#D1FAE5]'
-                  : 'text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50'
-              }`}
-            >
-              <Search className="w-3.5 h-3.5" />
-              <span>Price Search</span>
-            </button>
-
             <button
               onClick={() => setActiveTab('filter')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 text-xs font-semibold ${
@@ -130,18 +116,6 @@ export const Header: React.FC<HeaderProps> = ({
               <Users className="w-3.5 h-3.5" />
               <span>Instructors</span>
             </button>
-
-            <button
-              onClick={() => setActiveTab('matrix')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 text-xs font-semibold ${
-                activeTab === 'matrix'
-                  ? 'bg-[#F0FDF4] text-[#006B45] border border-[#D1FAE5]'
-                  : 'text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50'
-              }`}
-            >
-              <Grid3X3 className="w-3.5 h-3.5" />
-              <span>Matrix</span>
-            </button>
           </nav>
 
           {/* Zone 3: Live Verified Source Badge */}
@@ -156,15 +130,6 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Mobile Navigation Bar */}
         <div className="sm:hidden flex items-center justify-around py-2 border-t border-[#E2E8F0] text-xs font-medium text-[#64748B]">
-          <button
-            onClick={() => setActiveTab('search')}
-            className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
-              activeTab === 'search' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
-            }`}
-          >
-            <Search className="w-4 h-4" />
-            <span className="text-[10px]">Search</span>
-          </button>
           <button
             onClick={() => setActiveTab('filter')}
             className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
@@ -209,15 +174,6 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Users className="w-4 h-4" />
             <span className="text-[10px]">Instructors</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('matrix')}
-            className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
-              activeTab === 'matrix' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
-            }`}
-          >
-            <Grid3X3 className="w-4 h-4" />
-            <span className="text-[10px]">Matrix</span>
           </button>
         </div>
       </div>

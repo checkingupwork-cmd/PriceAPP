@@ -1,16 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { Header, ActiveTab } from './components/Header';
 import { Sidebar } from './components/Sidebar';
-import { SearchDashboard } from './components/SearchDashboard';
 import { SearchByFilter } from './components/SearchByFilter';
-import { PriceMatrixView } from './components/PriceMatrixView';
 import { TransportationPage } from './components/TransportationPage';
 import { BranchLocationPage } from './components/BranchLocationPage';
 import { BranchInformationPage } from './components/BranchInformationPage';
 import { InstructorsPage } from './components/InstructorsPage';
 import {
   RawMatrixRow,
-  NormalizedPriceRecord,
   DataSourceState,
 } from './types/pricing';
 import { loadSavedMatrix } from './services/sheetsService';
@@ -25,13 +22,8 @@ export default function App() {
   // Compute normalized records whenever matrix changes
   const records = useMemo(() => normalizeMatrix(matrix), [matrix]);
 
-  // Selected record for quick price card
-  const [selectedRecord, setSelectedRecord] = useState<NormalizedPriceRecord | null>(() => {
-    return records.find((r) => r.serviceName === 'THEORY TEST' && r.category === 'LMV' && r.feeType === 'REGULAR') || records[0] || null;
-  });
-
-  // Navigation tab state (search | filter | transport | matrix | branches)
-  const [activeTab, setActiveTab] = useState<ActiveTab>('search');
+  // Navigation tab state (filter | transport | branches | branch-info | instructors)
+  const [activeTab, setActiveTab] = useState<ActiveTab>('filter');
 
   // Notification toast state
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -59,11 +51,6 @@ export default function App() {
   // Dynamic header titles based on active tab
   const tabDetails = useMemo(() => {
     switch (activeTab) {
-      case 'filter':
-        return {
-          title: 'Search by Filter',
-          description: 'Multi-criteria tariff lookup combining Category, Fee Type, specific Service, and AED Price Range.',
-        };
       case 'transport':
         return {
           title: 'Transportation Schedule',
@@ -84,16 +71,11 @@ export default function App() {
           title: 'Instructors',
           description: 'Search, filter, and manage Eco Drive driving instructors directly from the imported Excel directory.',
         };
-      case 'matrix':
-        return {
-          title: 'Sheet Matrix View',
-          description: 'Interactive 2D spreadsheet layout matching the original Google Sheet table format.',
-        };
-      case 'search':
+      case 'filter':
       default:
         return {
-          title: 'Price Search Dashboard',
-          description: 'Ultra-fast search for driving school service prices across LMV, MOT, HVB, HVT, and HME.',
+          title: 'Search by Filter',
+          description: 'Multi-criteria tariff lookup combining Category, Fee Type, specific Service, and AED Price Range.',
         };
     }
   }, [activeTab]);
@@ -165,14 +147,6 @@ export default function App() {
 
         {/* Workspace Container */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
-          {activeTab === 'search' && (
-            <SearchDashboard
-              records={records}
-              matrix={matrix}
-              selectedRecord={selectedRecord}
-              setSelectedRecord={setSelectedRecord}
-            />
-          )}
 
           {activeTab === 'filter' && (
             <SearchByFilter
@@ -195,18 +169,6 @@ export default function App() {
 
           {activeTab === 'instructors' && (
             <InstructorsPage onShowToast={showToast} />
-          )}
-
-          {activeTab === 'matrix' && (
-            <PriceMatrixView
-              matrix={matrix}
-              onSelectCellRecord={(record) => {
-                setSelectedRecord(record);
-                if (record.price !== null) {
-                  showToast(`Copied ${record.serviceName} (${record.category}): AED ${record.price.toFixed(2)}`);
-                }
-              }}
-            />
           )}
         </main>
 
