@@ -6,6 +6,7 @@ import { SearchByFilter } from './components/SearchByFilter';
 import { PriceMatrixView } from './components/PriceMatrixView';
 import { TransportationPage } from './components/TransportationPage';
 import { BranchLocationPage } from './components/BranchLocationPage';
+import { InstructorsPage } from './components/InstructorsPage';
 import {
   RawMatrixRow,
   NormalizedPriceRecord,
@@ -71,6 +72,11 @@ export default function App() {
         return {
           title: 'Branch and Location',
           description: 'Official Eco Drive branch network across Dubai, traffic zone conditions, road training restrictions, and live availability.',
+        };
+      case 'instructors':
+        return {
+          title: 'Instructors',
+          description: 'Search, filter, and manage Eco Drive driving instructors directly from the imported Excel directory.',
         };
       case 'matrix':
         return {
@@ -175,6 +181,10 @@ export default function App() {
 
           {activeTab === 'branches' && (
             <BranchLocationPage />
+          )}
+
+          {activeTab === 'instructors' && (
+            <InstructorsPage onShowToast={showToast} />
           )}
 
           {activeTab === 'matrix' && (

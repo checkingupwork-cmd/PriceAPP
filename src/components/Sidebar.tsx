@@ -8,6 +8,7 @@ import {
   ChevronRight,
   Bus,
   MapPin,
+  Users,
 } from 'lucide-react';
 import { ActiveTab } from './Header';
 import { DataSourceState } from '../types/pricing';
@@ -56,6 +57,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       description: '39 branches & live availability',
       icon: <MapPin className="w-4 h-4" />,
       badge: 'New',
+    },
+    {
+      id: 'instructors' as ActiveTab,
+      label: 'Instructors',
+      description: 'Search & Excel directory',
+      icon: <Users className="w-4 h-4" />,
     },
   ];
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Search, SlidersHorizontal, Grid3X3, CheckCircle2, Bus, MapPin } from 'lucide-react';
+import { Search, SlidersHorizontal, Grid3X3, CheckCircle2, Bus, MapPin, Users } from 'lucide-react';
 import { DataSourceState } from '../types/pricing';
 
-export type ActiveTab = 'search' | 'filter' | 'matrix' | 'transport' | 'branches';
+export type ActiveTab = 'search' | 'filter' | 'matrix' | 'transport' | 'branches' | 'instructors';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -51,6 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
               {activeTab === 'filter' && 'Search by Filter'}
               {activeTab === 'transport' && 'Transportation'}
               {activeTab === 'branches' && 'Branch and Location'}
+              {activeTab === 'instructors' && 'Instructors'}
               {activeTab === 'matrix' && 'Sheet Matrix'}
             </span>
           </div>
@@ -103,6 +104,18 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <MapPin className="w-3.5 h-3.5" />
               <span>Branches</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('instructors')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 text-xs font-semibold ${
+                activeTab === 'instructors'
+                  ? 'bg-[#F0FDF4] text-[#006B45] border border-[#D1FAE5]'
+                  : 'text-[#64748B] hover:text-[#0F172A] hover:bg-slate-50'
+              }`}
+            >
+              <Users className="w-3.5 h-3.5" />
+              <span>Instructors</span>
             </button>
 
             <button
@@ -165,6 +178,15 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <MapPin className="w-4 h-4" />
             <span className="text-[10px]">Branches</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('instructors')}
+            className={`flex flex-col items-center gap-1 py-1 px-1.5 rounded-lg ${
+              activeTab === 'instructors' ? 'text-[#006B45] font-bold bg-[#F0FDF4]' : ''
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            <span className="text-[10px]">Instructors</span>
           </button>
           <button
             onClick={() => setActiveTab('matrix')}
