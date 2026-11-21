@@ -6,6 +6,7 @@ import { SearchByFilter } from './components/SearchByFilter';
 import { PriceMatrixView } from './components/PriceMatrixView';
 import { TransportationPage } from './components/TransportationPage';
 import { BranchLocationPage } from './components/BranchLocationPage';
+import { BranchInformationPage } from './components/BranchInformationPage';
 import { InstructorsPage } from './components/InstructorsPage';
 import {
   RawMatrixRow,
@@ -72,6 +73,11 @@ export default function App() {
         return {
           title: 'Branch and Location',
           description: 'Official Eco Drive branch network across Dubai, traffic zone conditions, road training restrictions, and live availability.',
+        };
+      case 'branch-info':
+        return {
+          title: 'Branch Information',
+          description: 'Search, filter, and manage official Eco Drive registration offices, contact numbers, and locations.',
         };
       case 'instructors':
         return {
@@ -181,6 +187,10 @@ export default function App() {
 
           {activeTab === 'branches' && (
             <BranchLocationPage />
+          )}
+
+          {activeTab === 'branch-info' && (
+            <BranchInformationPage onShowToast={showToast} />
           )}
 
           {activeTab === 'instructors' && (
